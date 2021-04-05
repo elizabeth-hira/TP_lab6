@@ -13,24 +13,13 @@ extension Numeric where Self: LosslessStringConvertible {
 func isPalindrome(number: Int) -> Bool {
     let intDigits = number.digits
 
-    if intDigits == intDigits.reversed() {
-        return true
-    } else {
-        return false
-    }
+    return intDigits == intDigits.reversed()
 }
 
 func uniqueSymbols(string: String) {
     let stringArray = [Character](Array(string))
-    var dictionary = [Character: Int]()
+    let dictionary = Dictionary(grouping: stringArray, by: { $0 }).mapValues{ items in items.count }
     
-    for i in stringArray {
-        if dictionary[i] != nil {
-            dictionary[i]! += 1
-        } else {
-            dictionary[i] = 1
-        }
-    }
     dictionary.sorted(by: {
         $0.value > $1.value
     })
